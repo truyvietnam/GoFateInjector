@@ -2,6 +2,8 @@
 
 A sh*tty replica of Fate Injector written in Go because why not!
 
+**Note: This injector is not associated with bigrat.monster website. I put bigrat.monster in "Made by bigrat.monster" as a joke**
+
 # Why
 
 1. Cuz I am a crackhead
