@@ -9,5 +9,7 @@ A sh*tty replica of Fate Injector written in Go because why not!
 
 # Credits
 [Fate Injector](https://github.com/fligger/FateInjector) - The original Fate Injector
+
 [Windigo](https://github.com/rodrigocfd/windigo) - Win32 gui library in Go
+
 [injgo](https://github.com/jiusanzhou/injgo) - LoadLibrary inject method
