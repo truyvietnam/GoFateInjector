@@ -1,9 +1,9 @@
 package main
 
 import (
+	"GoFateInjector/injector"
 	"bufio"
 	"fmt"
-	"injector/injector"
 	"os"
 	"runtime"
 	"strconv"
