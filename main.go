@@ -71,7 +71,7 @@ func ReadAndApplyConfig(windows *MyWindow) {
 
 	windows.procName.SetText(procName)
 	windows.delayTxt.SetText(delay)
-	windows.dllPathName.SetText(strings.Trim(dllPath, "dllPath="))
+	windows.dllPathName.SetText(strings.TrimLeft(dllPath, "dllPath="))
 	if customProc {
 		windows.customCheck.SetCheckStateAndTrigger(co.BST_CHECKED)
 	}
