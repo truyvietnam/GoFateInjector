@@ -17,7 +17,7 @@ var (
 	ErrProcess32Fail                = errors.New("Process32Next failed")
 	ErrCreateToolhelp32SnapshotFail = errors.New("CreateToolhelp32Snapshot failed")
 	FoundProcess                    = errors.New("Process found!") //not error
-	InvalidPath                     = errors.New("invalid file path")
+	ErrInvalidPath                  = errors.New("invalid file path")
 	Injected                        = errors.New("valid file path | Injected!")
 
 	kernel32Dll        = windows.NewLazyDLL("kernel32.dll")
@@ -60,7 +60,7 @@ func Inject(procId int, path string) error {
 	loc, _, _ := virtualAllocEx.Call(uintptr(procHandler), 0, windows.MAX_PATH, windows.MEM_COMMIT|windows.MEM_RESERVE, windows.PAGE_READWRITE)
 
 	if _, err := os.Stat(path); os.IsNotExist(err) || strings.ToLower(filepath.Ext(path)) != ".dll" {
-		return InvalidPath
+		return ErrInvalidPath
 	}
 
 	ptrPath, err := windows.BytePtrFromString(path)

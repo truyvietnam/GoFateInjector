@@ -36,9 +36,8 @@ func main() {
 
 // This struct represents our main window.
 type MyWindow struct {
-	wnd ui.WindowMain
-	//fakeStatus  ui.Static
-	fakeStatus  ui.StatusBar
+	wnd         ui.WindowMain
+	statusBar   ui.StatusBar
 	procName    ui.Edit
 	dllPathName ui.Edit
 	injectBtn   ui.Button
@@ -140,15 +139,15 @@ func SysTrayIcon(hwnd win.HWND) {
 func Inject(windows *MyWindow) {
 	procId, err := injector.FindProcessByName(windows.procName.Text())
 	if err != nil && err != injector.FoundProcess {
-		windows.fakeStatus.Parts().SetAllTexts(fmt.Sprintf("%s | %d", err.Error(), procId)) //SetTextAndResize(fmt.Sprintf("%s | %d", err.Error(), procId))
+		windows.statusBar.Parts().SetAllTexts(fmt.Sprintf("%s | %d", err.Error(), procId)) //SetTextAndResize(fmt.Sprintf("%s | %d", err.Error(), procId))
 		return
 	}
 	err2 := injector.Inject(procId, windows.dllPathName.Text())
 	if err2 != nil {
-		windows.fakeStatus.Hwnd().SetWindowPos(win.HWND(0), 0, 0,
+		windows.statusBar.Hwnd().SetWindowPos(win.HWND(0), 0, 0,
 			20, 100, co.SWP_NOZORDER|co.SWP_NOMOVE) //sketchy
 
-		windows.fakeStatus.Parts().SetAllTexts(fmt.Sprintf("%s | %d | %s", err.Error(), procId, err2.Error())) //SetTextAndResize(fmt.Sprintf("%s | %d | %s", err.Error(), procId, err2.Error()))
+		windows.statusBar.Parts().SetAllTexts(fmt.Sprintf("%s | %d | %s", err.Error(), procId, err2.Error())) //SetTextAndResize(fmt.Sprintf("%s | %d | %s", err.Error(), procId, err2.Error()))
 
 		if err2 == injector.Injected {
 			WriteConfig(windows)
@@ -157,14 +156,14 @@ func Inject(windows *MyWindow) {
 }
 
 func AutoInject(windows *MyWindow, delay int) {
-	windows.fakeStatus.Hwnd().SetWindowPos(win.HWND(0), 0, 0,
+	windows.statusBar.Hwnd().SetWindowPos(win.HWND(0), 0, 0,
 		20, 100, co.SWP_NOZORDER|co.SWP_NOMOVE) //sketchy (resize again)
 	if delay != 1 {
-		windows.fakeStatus.Parts().SetAllTexts(fmt.Sprintf("AutoInject: Enabled | trying every %d seconds", delay)) //SetTextAndResize(fmt.Sprintf("AutoInject: Enabled | trying every %d seconds", delay))
+		windows.statusBar.Parts().SetAllTexts(fmt.Sprintf("AutoInject: Enabled | trying every %d seconds", delay)) //SetTextAndResize(fmt.Sprintf("AutoInject: Enabled | trying every %d seconds", delay))
 	} else if delay <= 1 {
 		windows.delayTxt.SetText("1")
 		delay = 1
-		windows.fakeStatus.Parts().SetAllTexts("AutoInject: Enabled | trying every second") //SetTextAndResize("AutoInject: Enabled | trying every second")
+		windows.statusBar.Parts().SetAllTexts("AutoInject: Enabled | trying every second") //SetTextAndResize("AutoInject: Enabled | trying every second")
 	}
 
 	for {
@@ -188,8 +187,8 @@ func NewMyWindow() *MyWindow {
 	com.CoInitializeEx(comco.COINIT_APARTMENTTHREADED)
 
 	me := &MyWindow{
-		wnd:        wnd,
-		fakeStatus: ui.NewStatusBar(wnd),
+		wnd:       wnd,
+		statusBar: ui.NewStatusBar(wnd),
 		procName: ui.NewEdit(wnd,
 			ui.EditOpts().
 				Position(win.POINT{X: 110, Y: 5}).
@@ -330,7 +329,7 @@ func NewMyWindow() *MyWindow {
 			WriteConfig(me)
 		}
 		ReadAndApplyConfig(me)
-		me.fakeStatus.Parts().SetAllTexts("Version 1.1 | Made by bigrat.monster")
+		me.statusBar.Parts().SetAllTexts("Version 1.1 | Made by bigrat.monster")
 
 		return 0
 	})
