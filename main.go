@@ -131,8 +131,8 @@ func SysTrayIcon(hwnd win.HWND) {
 	nid.UID = 20    // any ID number
 	nid.UFlags = co.NIF_ICON | co.NIF_MESSAGE | co.NIF_TIP
 	nid.HIcon = hwnd.Hinstance().LoadIcon(win.IconResInt(2))
-	nid.UCallbackMessage = 0x0400 + 1
-	nid.SetSzTip("You hovered the tray icon")
+	nid.UCallbackMessage = WMUserTrayIcon
+	nid.SetSzTip("Double-Click to show Go Fate Injector")
 	win.ShellNotifyIcon(co.NIM_ADD, &nid)
 }
 
@@ -306,6 +306,10 @@ func NewMyWindow() *MyWindow {
 		popup.AddItem(ClosePopupId, "Close")
 
 		popup.ShowAtPoint(mousepos, wnd.Hwnd(), 0)
+	})
+
+	wnd.On().AddUserCustom(WMUserTrayIcon, co.CMD(co.WM_LBUTTONDBLCLK), func(p wm.Any) {
+		wnd.Hwnd().ShowWindow(co.SW_SHOW)
 	})
 
 	wnd.On().WmCommandMenu(InjectPopupId, func(p wm.Command) {

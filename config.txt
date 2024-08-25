@@ -1,0 +1,5 @@
+#Go Fate Client injector config file
+customProcName=false
+delaystr=5
+dllPath=Click "Select" to select the dll file
+procName=minecraft.windows.exe
