@@ -16,25 +16,11 @@ A sh*tty replica of Fate Injector written in Go because why not!
 
 # Images
 
-The images was shot at 125% scale
-
 ![default](https://github.com/truyvietnam/GoFateInjector/blob/main/image/GoFateInjector_default.png?raw=true)
 
 ![selectDll](https://github.com/truyvietnam/GoFateInjector/blob/main/image/GoFateInjector_selectdll.png?raw=true)
 
 ![delayBox](https://github.com/truyvietnam/GoFateInjector/blob/main/image/NumberOnly.png?raw=true)
-
-# 100% scale temporary solution
-
-**If you are using higher scale you don't have to follow this**
-
-There is a problem with status bar on 100% scale that looks higher than normal and it will look annoy
-
-![problem](https://github.com/truyvietnam/GoFateInjector/blob/main/image/GoFateInjector_100scale.png?raw=true)
-
-This may be the problem happened with windigo. To temporarily fix this you just need to set the injector's high DPI setting by right-click the exe -> Properties -> Compatibility tab -> Change high DPI settings with this following setting and how the injector will look like
-
-![setting](https://github.com/truyvietnam/GoFateInjector/blob/main/image/scale100fix.png?raw=true)
 
 # Credits
 [Fate Injector](https://github.com/fligger/FateInjector) - The original Fate Injector
